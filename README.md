@@ -6,3 +6,5 @@ Fisierul "Executables" contine executabilele (aplicatia finala). Dupa copierea f
 Fara fisierul "Data" aplicatia nu poate afisa text, dar poate rula.
 
 Pentru a compila codul trebuie librariile SFML puse in fisierul "".
+
+Proiectul a fost facut in totalitate de elevul Trandafir Tudor de la liceul Ovidius Constanta
