@@ -1,0 +1,6 @@
+"S" : Pozitia de inceput este miscata la cursorul mouse-ului.
+"E" : Pozitia de sfarsit este miscata la cursorul mouse-ului.
+Left Click : Nodul la care se afla cursorul mouse-ului devine "unparsable".
+Right Click : Nodul la care se afla cursorul mouse-ului devine "parsable".
+
+Space : Algoritmul este aratat pe ecran.
