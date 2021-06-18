@@ -1,6 +1,6 @@
 #include "Dijkstra.h"
 
-#include <iostream>
+//#include <iostream>
 
 Dijkstra::Dijkstra(Map* map) {
 	
@@ -54,7 +54,7 @@ std::vector <sf::Vector2i> Dijkstra::generate() {
 		pos = Dijkstra::previous[pos.x][pos.y];
 	}
 
-	std::cout << path.size() << " ";
+	//std::cout << path.size() << " ";
 	return path;
 }
 

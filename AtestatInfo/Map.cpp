@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "App.h"
 
-#include <iostream>
+//#include <iostream>
 
 Map::Map(sf::Vector2i size, App* app) : shape(sf::Quads, 4)
 {
