@@ -3,10 +3,10 @@
 Acest README va contine informatiile necesare pentru setup.
 
 Executabilele pentru fiecare versiune se vor afla in fisierele:
-Debug x86   : "AtestatInfo/Debug"
-Release x86 : "AtestatInfo/Release"
-Debug x64   : "AtestatInfo/x64/Debug"
-Release x64 : "AtestatInfo/x64/Release"
+1. Debug x86   : "AtestatInfo/Debug"
+2. Release x86 : "AtestatInfo/Release"
+3. Debug x64   : "AtestatInfo/x64/Debug"
+4. Release x64 : "AtestatInfo/x64/Release"
 
 Fara fisierul "Data" aplicatia nu poate afisa text, dar poate rula.
 
