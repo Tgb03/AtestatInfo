@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Map.h" />

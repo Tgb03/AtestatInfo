@@ -46,7 +46,8 @@ std::vector <sf::Vector2i> Dijkstra::generate() {
 			}
 		}
 	}
-
+	 
+	// extract path from map
 	std::vector <sf::Vector2i> path;
 
 	while (pos != sf::Vector2i(-1, -1)) {

@@ -43,13 +43,13 @@ std::vector<sf::Vector2i> Map::get_adjacent(sf::Vector2i pos)
 {
 	std::vector<sf::Vector2i> result;
 
-	if (pos.x > 0)
+	if (pos.x > 0 && Map::get_walkable({ pos.x - 1, pos.y }))
 		result.push_back({ pos.x - 1, pos.y });
-	if (pos.x < Map::size.x - 1)
+	if (pos.x < Map::size.x - 1 && Map::get_walkable({ pos.x + 1, pos.y }))
 		result.push_back({ pos.x + 1, pos.y });
-	if (pos.y > 0)
+	if (pos.y > 0 && Map::get_walkable({ pos.x, pos.y - 1 }))
 		result.push_back({ pos.x, pos.y - 1 });
-	if (pos.y < Map::size.y - 1)
+	if (pos.y < Map::size.y - 1 && Map::get_walkable({ pos.x, pos.y + 1 }))
 		result.push_back({ pos.x, pos.y + 1 });
 
 	return result;
@@ -74,6 +74,8 @@ void Map::reset_search()
 {
 	for (int i = 0; i < Map::parsed.size(); ++i)
 		Map::parsed[i] = false;
+
+	Map::path.clear();
 }
 
 void Map::render(Camera* camera) {
@@ -89,15 +91,19 @@ void Map::render(Camera* camera) {
 			if (Map::get_walkable(sf::Vector2i(i, j))) {
 				Map::set_vertex_color(&(Map::shape), sf::Color(255, 255, 255));
 
+				// Has been parsed
 				if (Map::parsed[Map::convert_pos({ i, j })])
 					Map::set_vertex_color(&(Map::shape), sf::Color(sf::Color::Yellow));
 
+				// Is path tile
 				if (std::find(Map::path.begin(), Map::path.end(), sf::Vector2i(i, j)) != Map::path.end())
 					Map::set_vertex_color(&(Map::shape), sf::Color(sf::Color::Cyan));
 
+				// is Start
 				if (Map::start == sf::Vector2i(i, j))
 					Map::set_vertex_color(&(Map::shape), sf::Color::Green);
 
+				// is End
 				if (Map::end == sf::Vector2i(i, j))
 					Map::set_vertex_color(&(Map::shape), sf::Color::Red);
 			} else
@@ -166,4 +172,9 @@ bool Map::is_end(sf::Vector2i position)
 		Map::parsed[Map::convert_pos(position)] = true;
 
 	return Map::end == position;
+}
+
+sf::Vector2i Map::get_end()
+{
+	return Map::end;
 }

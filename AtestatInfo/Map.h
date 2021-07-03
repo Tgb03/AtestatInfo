@@ -31,8 +31,11 @@ public:
 	// get start
 	sf::Vector2i get_start();
 
-	// get end
+	// is end test
 	bool is_end(sf::Vector2i position);
+
+	// get end position
+	sf::Vector2i get_end();
 
 	// converts map coords to vector position
 	int convert_pos(sf::Vector2i);

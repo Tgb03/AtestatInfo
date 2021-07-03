@@ -7,6 +7,9 @@
 #include "UserInterface.h"
 
 #include "Dijkstra.h"
+#include "AStar.h"
+
+enum class Algorithm{Dijkstra, AStar, Count};
 
 class App
 {
@@ -20,6 +23,8 @@ public:
 	sf::RenderWindow* get_window();
 
 private:
+
+	Algorithm selection;
 
 	sf::RenderWindow window;
 

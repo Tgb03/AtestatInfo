@@ -6,6 +6,8 @@ App::App() : window(sf::VideoMode(2048, 1024), "Pathfinder"),
 {
 	App::frame_rate = 120;
 	App::logic_speed = 60;
+
+	App::selection = Algorithm::Dijkstra;
 }
 
 bool App::tick()
@@ -40,6 +42,17 @@ bool App::logic_tick() {
 		if (event.type == sf::Event::Closed)
 			window.close();
 
+		if (event.type == sf::Event::KeyPressed)
+			if (event.key.code == sf::Keyboard::Z) {
+				int n_value = 1 + static_cast<int>(App::selection);
+
+				if (n_value == static_cast<int>(Algorithm::Count))
+					n_value = 0;
+
+				std::cout << n_value;
+
+				App::selection = static_cast<Algorithm>(n_value);
+			}
 		//if (event.type == sf::Event::Resized)
 		//	App::camera.resize(sf::Vector2i( event.size.width, event.size.height));
 	}
@@ -47,9 +60,24 @@ bool App::logic_tick() {
 	App::map.logic();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		Dijkstra dijkstra(&(App::map));
 
-		App::map.update_path(dijkstra.generate());
+		App::map.reset_search();
+
+		switch (App::selection)
+		{
+		case Algorithm::Dijkstra: {
+			Dijkstra dijkstra(&(App::map));
+			App::map.update_path(dijkstra.generate());
+			break;
+		}
+		case Algorithm::AStar: {
+			AStar astar(&(App::map));
+			App::map.update_path(astar.generate());
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 	return true;
