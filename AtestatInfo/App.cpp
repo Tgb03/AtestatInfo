@@ -49,7 +49,7 @@ bool App::logic_tick() {
 				if (n_value == static_cast<int>(Algorithm::Count))
 					n_value = 0;
 
-				std::cout << n_value;
+				//std::cout << n_value;
 
 				App::selection = static_cast<Algorithm>(n_value);
 			}
