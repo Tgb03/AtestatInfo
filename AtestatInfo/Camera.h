@@ -22,7 +22,7 @@ private:
 	sf::View view_UserInterface;
 	sf::View view_AppInterface;
 
-	sf::View* UserInterface;
-	sf::View* AppInterface;
+	//sf::View* UserInterface;
+	//sf::View* AppInterface;
 };
 

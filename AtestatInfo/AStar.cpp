@@ -72,7 +72,7 @@ std::vector <sf::Vector2i> AStar::generate() {
 		AStar::closed_list.push_back(q);
 	}
 
-	return std::vector <sf::Vector2i>();
+	return AStar::trace_path();
 
 }
 

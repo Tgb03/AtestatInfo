@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <string>
+
 #include "Map.h"
 #include "Camera.h"
 #include "UserInterface.h"
@@ -21,11 +23,14 @@ public:
 	bool tick();
 
 	sf::RenderWindow* get_window();
+	std::string getAlgorithmString();
 
 private:
+	
+	std::vector <std::string> AlgorithmStrings;
 
 	Algorithm selection;
-
+	
 	sf::RenderWindow window;
 
 	// classes required

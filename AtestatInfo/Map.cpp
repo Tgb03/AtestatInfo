@@ -89,7 +89,7 @@ void Map::render(Camera* camera) {
 			Map::shape[3].position = sf::Vector2f(i * tile_size.x, (j + 1) * tile_size.y - 1);
 
 			if (Map::get_walkable(sf::Vector2i(i, j))) {
-				Map::set_vertex_color(&(Map::shape), sf::Color(255, 255, 255));
+				Map::set_vertex_color(&(Map::shape), sf::Color::White);
 
 				// Has been parsed
 				if (Map::parsed[Map::convert_pos({ i, j })])

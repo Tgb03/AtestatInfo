@@ -12,6 +12,8 @@ public:
 
 	void render(Camera* camera);
 
+	void setUsedAlgorithm(std::string s);
+
 private:
 
 	sf::Font font;
@@ -19,11 +21,23 @@ private:
 	sf::Text text_title;
 	sf::Text text_legend;
 	sf::Text text_visualize;
-	//sf::Text calculate_text;
 
-	sf::RectangleShape rectangle_name;
+	sf::Text text_symbology;
+
+	sf::Text algorithm_selected;
+	std::string algorithm;
+
+	sf::RectangleShape rectangle_background;
 	sf::RectangleShape rectangle_legend;
 	sf::RectangleShape rectangle_box1;
 	sf::RectangleShape rectangle_visualize;
+
+	sf::RectangleShape symbology_green;
+	sf::RectangleShape symbology_red;
+	sf::RectangleShape symbology_cyan;
+	sf::RectangleShape symbology_yellow;
+
+	sf::RectangleShape symbology_white;
+	sf::RectangleShape symbology_black;
 };
 

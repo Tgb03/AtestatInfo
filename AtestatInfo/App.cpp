@@ -8,6 +8,10 @@ App::App() : window(sf::VideoMode(2048, 1024), "Pathfinder"),
 	App::logic_speed = 60;
 
 	App::selection = Algorithm::Dijkstra;
+	AlgorithmStrings = {"Dijsktra", "AStar"};
+
+	App::ui.setUsedAlgorithm(App::getAlgorithmString());
+
 }
 
 bool App::tick()
@@ -32,15 +36,25 @@ sf::RenderWindow* App::get_window()
 	return &(App::window);
 }
 
+std::string App::getAlgorithmString()
+{
+	return AlgorithmStrings.at(static_cast<int>(App::selection));
+}
+
 
 
 bool App::logic_tick() {
 	sf::Event event;
 
+	App::map.logic();
+
 	while (window.pollEvent(event)) {
 		// "close requested" event
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) {
 			window.close();
+
+			return false;
+		}
 
 		if (event.type == sf::Event::KeyPressed)
 			if (event.key.code == sf::Keyboard::Z) {
@@ -49,35 +63,31 @@ bool App::logic_tick() {
 				if (n_value == static_cast<int>(Algorithm::Count))
 					n_value = 0;
 
-				//std::cout << n_value;
-
 				App::selection = static_cast<Algorithm>(n_value);
+
+				App::ui.setUsedAlgorithm(App::getAlgorithmString());
+			}
+			if (event.key.code == sf::Keyboard::Space) {
+				App::map.reset_search();
+
+				switch (App::selection)
+				{
+				case Algorithm::Dijkstra: {
+					Dijkstra dijkstra(&(App::map));
+					App::map.update_path(dijkstra.generate());
+					break;
+				}
+				case Algorithm::AStar: {
+					AStar astar(&(App::map));
+					App::map.update_path(astar.generate());
+					break;
+				}
+				default:
+					break;
+				}
 			}
 		//if (event.type == sf::Event::Resized)
 		//	App::camera.resize(sf::Vector2i( event.size.width, event.size.height));
-	}
-
-	App::map.logic();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-
-		App::map.reset_search();
-
-		switch (App::selection)
-		{
-		case Algorithm::Dijkstra: {
-			Dijkstra dijkstra(&(App::map));
-			App::map.update_path(dijkstra.generate());
-			break;
-		}
-		case Algorithm::AStar: {
-			AStar astar(&(App::map));
-			App::map.update_path(astar.generate());
-			break;
-		}
-		default:
-			break;
-		}
 	}
 
 	return true;
