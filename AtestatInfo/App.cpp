@@ -5,12 +5,16 @@ App::App() : window(sf::VideoMode(2048, 1024), "Pathfinder"),
 			camera(&window)
 {
 	App::frame_rate = 120;
-	App::logic_speed = 60;
+	App::logic_speed = 120;
 
 	App::selection = Algorithm::Dijkstra;
-	AlgorithmStrings = {"Dijsktra", "AStar"};
+	AlgorithmStrings = {"Dijsktra", "AStar", "Greedy-BFS", "Random"};
 
-	App::ui.setUsedAlgorithm(App::getAlgorithmString());
+	App::ui.setUsedAlgorithm(App::getAlgorithmString(), 0);
+
+	App::Buttons.push_back(Button({ 0, 705 }, { 300, 769 }, this));
+	App::Buttons.push_back(Button({ 310, 705 }, { 500, 769 }, this));
+	App::Buttons.push_back(Button({ 0, 773 }, {512, 1024}, this));
 
 }
 
@@ -56,39 +60,29 @@ bool App::logic_tick() {
 			return false;
 		}
 
-		if (event.type == sf::Event::KeyPressed)
+		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Z) {
-				int n_value = 1 + static_cast<int>(App::selection);
-
-				if (n_value == static_cast<int>(Algorithm::Count))
-					n_value = 0;
-
-				App::selection = static_cast<Algorithm>(n_value);
-
-				App::ui.setUsedAlgorithm(App::getAlgorithmString());
+				App::change_algorithm();
 			}
 			if (event.key.code == sf::Keyboard::Space) {
-				App::map.reset_search();
-
-				switch (App::selection)
-				{
-				case Algorithm::Dijkstra: {
-					Dijkstra dijkstra(&(App::map));
-					App::map.update_path(dijkstra.generate());
-					break;
-				}
-				case Algorithm::AStar: {
-					AStar astar(&(App::map));
-					App::map.update_path(astar.generate());
-					break;
-				}
-				default:
-					break;
-				}
+				pathfinder();
 			}
-		//if (event.type == sf::Event::Resized)
-		//	App::camera.resize(sf::Vector2i( event.size.width, event.size.height));
+		}
+
 	}
+
+	for (std::size_t i = 0; i < Buttons.size(); i++)
+		Buttons[i].checkPress();
+
+	// test buttons:
+	if (App::Buttons[0].getState() == ButtonStates::pressed)
+		App::pathfinder();
+
+	if (App::Buttons[1].getState() == ButtonStates::pressed)
+		App::change_algorithm();
+
+	if (App::Buttons[2].getState() == ButtonStates::pressed)
+		App::ui.changeLegend();
 
 	return true;
 }
@@ -101,8 +95,53 @@ void App::render_tick() {
 	App::map.render(&(App::camera));
 	
 	App::ui.render(&(App::camera));
+
+	for (auto textTab : TextTabs)
+		textTab.render(&(App::camera), sf::Vector2i(App::window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*(App::get_window()))))));
 	
 	// render ends
 
 	window.display();
+}
+
+void App::pathfinder() {
+	App::map.reset_search();
+
+	switch (App::selection)
+	{
+	case Algorithm::Dijkstra: {
+		Dijkstra dijkstra(&(App::map));
+		App::map.update_path(dijkstra.generate());
+		break;
+	}
+	case Algorithm::AStar: {
+		AStar astar(&(App::map));
+		App::map.update_path(astar.generate());
+		break;
+	}
+	case Algorithm::GreedyBestFirstSearch: {
+		GreedyBestFirstSearch greedybestFirstSearch(&(App::map));
+		App::map.update_path(greedybestFirstSearch.generate());
+		break;
+	}
+	case Algorithm::Random: {
+		Random random(&(App::map));
+		App::map.update_path(random.generate());
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void App::change_algorithm()
+{
+	int n_value = 1 + static_cast<int>(App::selection);
+
+	if (n_value == static_cast<int>(Algorithm::Count))
+		n_value = 0;
+
+	App::selection = static_cast<Algorithm>(n_value);
+
+	App::ui.setUsedAlgorithm(App::getAlgorithmString(), n_value);
 }

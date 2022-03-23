@@ -1,0 +1,44 @@
+50 150
+Dijkstra creaza o lista cu toate 
+nodurile care trebuie analizate, 
+fiecare nod aflandu-se la o 
+distanta "infinita" de nodul de 
+start. Nodul de start are o 
+distanta de 0. Din lista aceea 
+este ales nodul cu cea mai mica 
+distanta si analizat, pe urma 
+este eliminat din lista. Se face 
+pana se analizeaza toate nodurile 
+din lista sau pana se ajunge la 
+pozitia finala. |
+AStar calculeaza pentru fiecare
+nod 3 valori:
+ f(n) : costul total dintre g si h
+ g(n) : costul drumului pana la nod
+ h(n) : costul estimat de la nod 
+	pana la final
+De asemenea sunt folosite o lista
+de noduri ce trebuie analizate.
+Nodul de start este adaugat in 
+lista si este analizat. Valorile 
+tuturor nodurilor din jur sunt 
+calculate si sunt toate adaugate 
+in lista. Din lista este ales nodul 
+cu valoarea f(n) cea mai mica.
+|
+Greedy Best First Search cauta
+cel mai promitator nod pe moment.
+Creaza o lista in care se afla
+doar nodul initial. Din lista
+aceea este ales nodul care este
+cel mai apropiat de nodul final.
+Acest nod este analizat si eliminat
+din lista. Se repeta pana cand 
+lista ramane goala sau pana se 
+ajunge la pozitia finala. |
+Random creaza o lista unde se
+afla doar nodul initial. Din lista
+este ales un nod aleatoriu pentru 
+a fi analizat. Se repeta pana cand
+lista ramane goala sau pana se
+ajunge la pozitia finala.

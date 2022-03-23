@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "App.h"
 
-//#include <iostream>
+#include <iostream>
 
 Map::Map(sf::Vector2i size, App* app) : shape(sf::Quads, 4)
 {
@@ -68,6 +68,8 @@ sf::Vector2i Map::convert_pos(int id)
 void Map::update_path(std::vector<sf::Vector2i> path)
 {
 	Map::path = path;
+
+	std::cout << "Path length: " << path.size() << "\n";
 }
 
 void Map::reset_search()
@@ -112,20 +114,6 @@ void Map::render(Camera* camera) {
 			camera->render_app(&(Map::shape));
 		}
 
-	
-
-	auto mouse_pos = Map::app->get_window()->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*(Map::app->get_window()))));
-
-	mouse_pos.x += 512;
-
-	Map::shape[0].position = sf::Vector2f(mouse_pos);
-	Map::shape[1].position = sf::Vector2f(mouse_pos.x + 64, mouse_pos.y);
-	Map::shape[2].position = sf::Vector2f(mouse_pos.x + 64, mouse_pos.y + 64);
-	Map::shape[3].position = sf::Vector2f(mouse_pos.x, mouse_pos.y + 64);
-
-	Map::set_vertex_color(&(Map::shape), sf::Color::Yellow);
-
-	camera->render_ui(&(Map::shape));
 }
 
 void Map::set_vertex_color(sf::VertexArray* arr, sf::Color color) {

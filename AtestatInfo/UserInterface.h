@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "AlgorithmDescription.h"
+
 class Camera;
 
 class UserInterface
@@ -12,15 +14,20 @@ public:
 
 	void render(Camera* camera);
 
-	void setUsedAlgorithm(std::string s);
+	void setUsedAlgorithm(std::string s, int id);
+	void changeLegend();
 
 private:
+
+	bool legendBool;
 
 	sf::Font font;
 	
 	sf::Text text_title;
 	sf::Text text_legend;
+	sf::Text text_controls;
 	sf::Text text_visualize;
+	sf::Text text_change;
 
 	sf::Text text_symbology;
 
@@ -31,6 +38,7 @@ private:
 	sf::RectangleShape rectangle_legend;
 	sf::RectangleShape rectangle_box1;
 	sf::RectangleShape rectangle_visualize;
+	sf::RectangleShape rectangle_change;
 
 	sf::RectangleShape symbology_green;
 	sf::RectangleShape symbology_red;
@@ -39,5 +47,7 @@ private:
 
 	sf::RectangleShape symbology_white;
 	sf::RectangleShape symbology_black;
+
+	AlgorithmDescription algorithmDescription;
 };
 
